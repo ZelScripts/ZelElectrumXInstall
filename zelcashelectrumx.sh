@@ -14,10 +14,10 @@
 
 #Variables
 USERNAME=$(who -m | awk '{print $1;}')
-RPCUSER=grep rpcuser /home/$USERNAME/.zelcash/zelcash.conf
-RPCPASSWORD=grep rpcpassword /home/$USERNAME/.zelcash/zelcash.conf
-RPCPORT=grep rpcallowip /home/$USERNAME/.zelcash/zelcash.conf
-CONFIG_FILE=/home/$USERNAME/.zelcash/zelcash.conf
+RPCUSER='grep -r rpcuser= /home/goose/.zelcash/zelcash.conf | cut -d= -f2'
+RPCPASSWORD='grep -r rpcpassword= /home/goose/.zelcash/zelcash.conf | cut -d= -f2'
+RPCPORT='grep -r rpcallowip= /home/goose/.zelcash/zelcash.conf | cut -d= -f2'
+CONFIG_FILE='/home/$USERNAME/.zelcash/zelcash.conf'
 COIN_DAEMON='zelcashd'
 YELLOW='\033[1;33m'
 BLUE='\033[1;34m'
@@ -104,11 +104,8 @@ sleep 2
 echo -e "\033[1;33mInstalling ZelCash ElectrumX Server...\033[0m"
 sleep 2
 
-#Create data folder
-sudo mkdir /home/$USERNAME/zelcashelectrumx
-
 #Create docker subnet
-docker network create --subnet=172.17.0.0/16 mynet123
+docker network create --subnet=172.17.0.0/16 myzelnet123
 
 #Stopping ZelCash daemon to modify zelcash.conf
 sudo systemctl stop zelcash > /dev/null 2>&1 && sleep 3
@@ -119,7 +116,21 @@ sudo killall $COIN_DAEMON > /dev/null 2>&1
 echo "#Docker Subnet for ZelCash Electrum Server" >> ~/.zelcash/$CONFIG_FILE
 echo "rpcallowip=172.17.0.2/16" >> ~/.zelcash/$CONFIG_FILE
 
-#Create screen with name zelcashElectrumx
+#Restart zelcashd
+sudo systemctl start zelcash
+echo -e "\n\033[1;32mRestarting daemon...\033[0m"
+countdown "00:00:30"
+
+#Create script to execute docker in another screen
+echo -e "\n\033[1;32mCreating Script to Execute Docker Container...\033[0m"
+    sleep 3
+    #Create data folder
+    sudo mkdir /home/$USERNAME/zelcashelectrumx
+    touch /home/$USERNAME/startelectrumx.sh
+    echo "docker run --net myzelnet123 --ip 172.17.0.2 -v ~/zelcashelectrumx:/data -e DAEMON_URL=http://$RPCUSER:$RPCPASSWORD@172.17.0.1:16124 -e COIN=ZelCash -e MAX_SEND=20000000 -e CACHE_MB=2000 -e MAX_SESSIONS=5000 -e MAX_SUBS=500000 -e ALLOW_ROOT=1 -e RPC_HOST=127.0.0.1  -e SSL_PORT=50002 -p 50002:50002 thetrunk/electrumx" >> /home/$USERNAME/startelectrumx.sh
+    sudo chmod +x /home/$USERNAME/startelectrumx.sh
+
+#Open screen session with name zelcashElectrumx
 screen -mS zelcashElectrumx /home/$USERNAME/startelectrumx.sh
 
 
