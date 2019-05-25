@@ -44,6 +44,12 @@ countdown()
   echo -e "\033[1K"
 )
 
+clear
+echo -e '\033[1;33m===============================================================================\033[0m'
+echo -e 'ZelCash ElectrumX Server Setup, v1.0'
+echo -e '\033[1;33m===============================================================================\033[0m'
+echo -e '\033[1;34m25 May 2019, by Goose-Tech\033[0m'
+echo -e
 echo -e '\033[1;36mZelCash ElectrumX setup starting, press [CTRL-C] to cancel.\033[0m'
 countdown "00:00:03"
 echo -e
@@ -85,13 +91,13 @@ sudo add-apt-repository \
    $(lsb_release -cs) \
    stable"
 
-#Output install Docker
+#Output install Docker & other dependencies
 echo -e "\033[1;33mInstalling Docker packages...\033[0m"
 sleep 2
 
 #Install docker
 sudo apt-get update
-sudo apt-get install docker-ce docker-ce-cli containerd.io
+sudo apt-get install docker-ce docker-ce-cli containerd.io screen
 
 #Verify docker installation with Hello world.
 sudo docker run hello-world
