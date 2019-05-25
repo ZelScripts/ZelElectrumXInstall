@@ -105,7 +105,7 @@ echo -e "\033[1;33mInstalling ZelCash ElectrumX Server...\033[0m"
 sleep 2
 
 #Create docker subnet
-docker network create --subnet=172.18.0.0/16 myzelnet123
+sudo docker network create --subnet=172.18.0.0/16 myzelnet123
 
 #Stopping ZelCash daemon to modify zelcash.conf
 sudo systemctl stop zelcash > /dev/null 2>&1 && sleep 3
