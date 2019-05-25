@@ -24,7 +24,7 @@ If you follow the steps and use a newly installed Ubuntu Server 18.04 VPS, it wi
 **PLEASE BE SURE YOU ARE LOGGED IN AS YOUR USERNAME BEFORE RUNNING THESE SCRIPTS**
 
 ```
-wget -O zelcashelectrumx.sh https://raw.githubusercontent.com/ZelScripts/ZelElectrumXInstall/master/zelcashelectrumx.sh && chmod +x zelnode.sh && wget -O startelectrumx.sh https://raw.githubusercontent.com/ZelScripts/ZelElectrumXInstall/master/startelectrumx.sh && chmod +x ./startelectrumx.sh && ./zelnode.sh
+wget -O zelcashelectrumx.sh https://raw.githubusercontent.com/ZelScripts/ZelElectrumXInstall/master/zelcashelectrumx.sh && chmod +x zelnode.sh && wget -O startelectrumx.sh https://raw.githubusercontent.com/ZelScripts/ZelElectrumXInstall/master/startelectrumx.sh && chmod +x startelectrumx.sh && ./zelnode.sh
 ```
 
 **Follow instructions to run the install script**, which will install and configure docker for your node with all necessary options.
