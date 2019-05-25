@@ -24,22 +24,25 @@ If you follow the steps and use a newly installed Ubuntu Server 18.04 VPS, it wi
 **PLEASE BE SURE YOU ARE LOGGED IN AS YOUR USERNAME BEFORE RUNNING THESE SCRIPTS**
 
 ```
-wget -O zelcashelectrumx.sh https://raw.githubusercontent.com/ZelScripts/ZelElectrumXInstall/master/zelcashelectrumx.sh && chmod +x zelnode.sh && wget -O startelectrumx.sh https://raw.githubusercontent.com/ZelScripts/ZelElectrumXInstall/master/startelectrumx.sh && chmod +x startelectrumx.sh && ./zelnode.sh
+wget -O zelcashelectrumx.sh https://raw.githubusercontent.com/ZelScripts/ZelElectrumXInstall/master/zelcashelectrumx.sh && chmod +x zelcashelectrumx.sh && ./zelcashelectrumx.sh
 ```
 
 **Follow instructions to run the install script**, which will install and configure docker for your node with all necessary options.
 
 Then it will run ZelCash ElectrumX server in a separate screen.
-To verify that the screen is running the following commands may be run:
+To detach from the running screen session use:
 
 ```
-screen -rd zelcashElectrumx
+[CTRL-A] then d
 ```
-or
+To return to the screen session use:
+```
+screen -r
+```
+To list all running screen sessions use:
 ```
 screen -ls
 ```
-
 
 ***
 __NOTE:__ This process may take anywhere from 5 to 10 minutes, depending on your VPS HW specs.
