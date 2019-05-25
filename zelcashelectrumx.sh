@@ -17,7 +17,7 @@ USERNAME=$(who -m | awk '{print $1;}')
 RPCUSER='grep -r rpcuser= /home/goose/.zelcash/zelcash.conf | cut -d= -f2'
 RPCPASSWORD='grep -r rpcpassword= /home/goose/.zelcash/zelcash.conf | cut -d= -f2'
 RPCPORT='grep -r rpcallowip= /home/goose/.zelcash/zelcash.conf | cut -d= -f2'
-CONFIG_FILE='/home/$USERNAME/.zelcash/zelcash.conf'
+CONFIG_FILE='zelcash.conf'
 COIN_DAEMON='zelcashd'
 YELLOW='\033[1;33m'
 BLUE='\033[1;34m'
@@ -113,8 +113,8 @@ sudo zelcash-cli stop > /dev/null 2>&1 && sleep 5
 sudo killall $COIN_DAEMON > /dev/null 2>&1
 
 #Adding rpcallowip of docker container to zelcash.conf
-echo "#Docker Subnet for ZelCash Electrum Server" >> $CONFIG_FILE
-echo "rpcallowip=172.18.0.2/16" >> $CONFIG_FILE
+echo "#Docker Subnet for ZelCash Electrum Server" >> /home/$USERNAME/.zelcash/$CONFIG_FILE
+echo "rpcallowip=172.18.0.2/16" >> /home/$USERNAME/.zelcash/$CONFIG_FILE
 
 #Restart zelcashd
 sudo systemctl start zelcash
