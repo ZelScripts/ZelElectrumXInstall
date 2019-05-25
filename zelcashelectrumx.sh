@@ -14,9 +14,9 @@
 
 #Variables
 USERNAME=$(who -m | awk '{print $1;}')
-RPCUSER=`grep -r rpcuser= /home/goose/.zelcash/zelcash.conf | cut -d= -f2`
-RPCPASSWORD=`grep -r rpcpassword= /home/goose/.zelcash/zelcash.conf | cut -d= -f2`
-RPCPORT=`grep -r rpcallowip= /home/goose/.zelcash/zelcash.conf | cut -d= -f2`
+RPCUSER=`grep -r rpcuser= /home/$USERNAME/.zelcash/zelcash.conf | cut -d= -f2`
+RPCPASSWORD=`grep -r rpcpassword= /home/$USERNAME/.zelcash/zelcash.conf | cut -d= -f2`
+RPCPORT=`grep -r rpcallowip= /home/$USERNAME/.zelcash/zelcash.conf | cut -d= -f2`
 CONFIG_FILE='zelcash.conf'
 COIN_DAEMON='zelcashd'
 YELLOW='\033[1;33m'
