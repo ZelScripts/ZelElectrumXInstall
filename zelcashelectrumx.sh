@@ -105,7 +105,7 @@ echo -e "\033[1;33mInstalling ZelCash ElectrumX Server...\033[0m"
 sleep 2
 
 #Create docker subnet
-docker network create --subnet=172.17.0.0/16 myzelnet123
+docker network create --subnet=172.18.0.0/16 myzelnet123
 
 #Stopping ZelCash daemon to modify zelcash.conf
 sudo systemctl stop zelcash > /dev/null 2>&1 && sleep 3
@@ -114,7 +114,7 @@ sudo killall $COIN_DAEMON > /dev/null 2>&1
 
 #Adding rpcallowip of docker container to zelcash.conf
 echo "#Docker Subnet for ZelCash Electrum Server" >> ~/.zelcash/$CONFIG_FILE
-echo "rpcallowip=172.17.0.2/16" >> ~/.zelcash/$CONFIG_FILE
+echo "rpcallowip=172.18.0.2/16" >> ~/.zelcash/$CONFIG_FILE
 
 #Restart zelcashd
 sudo systemctl start zelcash
@@ -127,7 +127,7 @@ echo -e "\n\033[1;32mCreating Script to Execute Docker Container...\033[0m"
     #Create data folder
     sudo mkdir /home/$USERNAME/zelcashelectrumx
     touch /home/$USERNAME/startelectrumx.sh
-    echo "docker run --net myzelnet123 --ip 172.17.0.2 -v ~/zelcashelectrumx:/data -e DAEMON_URL=http://$RPCUSER:$RPCPASSWORD@172.17.0.1:16124 -e COIN=ZelCash -e MAX_SEND=20000000 -e CACHE_MB=2000 -e MAX_SESSIONS=5000 -e MAX_SUBS=500000 -e ALLOW_ROOT=1 -e RPC_HOST=127.0.0.1  -e SSL_PORT=50002 -p 50002:50002 thetrunk/electrumx" >> /home/$USERNAME/startelectrumx.sh
+    echo "docker run --net myzelnet123 --ip 172.18.0.2 -v ~/zelcashelectrumx:/data -e DAEMON_URL=http://$RPCUSER:$RPCPASSWORD@172.17.0.1:16124 -e COIN=ZelCash -e MAX_SEND=20000000 -e CACHE_MB=2000 -e MAX_SESSIONS=5000 -e MAX_SUBS=500000 -e ALLOW_ROOT=1 -e RPC_HOST=127.0.0.1  -e SSL_PORT=50002 -p 50002:50002 thetrunk/electrumx" >> /home/$USERNAME/startelectrumx.sh
     sudo chmod +x /home/$USERNAME/startelectrumx.sh
 
 #Open screen session with name zelcashElectrumx
