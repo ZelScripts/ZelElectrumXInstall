@@ -113,8 +113,8 @@ sudo zelcash-cli stop > /dev/null 2>&1 && sleep 5
 sudo killall $COIN_DAEMON > /dev/null 2>&1
 
 #Adding rpcallowip of docker container to zelcash.conf
-echo "#Docker Subnet for ZelCash Electrum Server" >> ~/.zelcash/$CONFIG_FILE
-echo "rpcallowip=172.18.0.2/16" >> ~/.zelcash/$CONFIG_FILE
+echo "#Docker Subnet for ZelCash Electrum Server" >> /home/$USERNAME/.zelcash/$CONFIG_FILE
+echo "rpcallowip=172.18.0.2/16" >> /home/$USERNAME/.zelcash/$CONFIG_FILE
 
 #Restart zelcashd
 sudo systemctl start zelcash
