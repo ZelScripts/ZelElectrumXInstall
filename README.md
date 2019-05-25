@@ -42,8 +42,8 @@ screen -ls
 
 
 ***
-__NOTE:__ This process may take anywhere from 5 to 15 minutes, depending on your VPS HW specs.
+__NOTE:__ This process may take anywhere from 5 to 10 minutes, depending on your VPS HW specs.
 
-Once the script completes, it will output the wallet info, which shows the sync status. Make sure blocks is > 0.
+Once the script completes, it will list the current screens running in the background.
 ***
-Many thanks to **AltTank fam**, **dk808**, **Skyslayer**, **Goose-Tech**, & **Packetflow** for their contributions to this scrypt, and the **ZelCash Team** for debugging and assistance.
+Special thanks to **Goose-Tech** and the **ZelCash Team** for debugging and assistance.
