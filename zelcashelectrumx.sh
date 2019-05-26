@@ -2,9 +2,9 @@
 #A scrypt to install ZelCash ElectrumX Server on an existing ZelNode
 #This scrypt will work on any VPS that meets the following minimum requirements:
 #
-#1.
-#2.
-#3.
+#1. OS - Ubuntu v16.04 or later
+#2. Installed and synced ZelNode (Basic, Super, or BAMF)
+#3. 
 #
 
 #Version 1
@@ -139,8 +139,36 @@ echo -e "\n\033[1;33mCreating Script to Execute Docker Container...\033[0m"
     sudo mkdir /home/$USERNAME/zelcashelectrumx
     touch /home/$USERNAME/startelectrumx.sh
     echo "#!/bin/bash" >> ./startelectrumx.sh
-    echo "sudo docker run --net myzelnet123 --ip 172.18.0.2 -v /home/$USERNAME/zelcashelectrumx:/data -e DAEMON_URL=http://$RPCUSER:$RPCPASSWORD@172.18.0.1:16124 -e COIN=ZelCash -e MAX_SEND=20000000 -e CACHE_MB=2000 -e MAX_SESSIONS=5000 -e MAX_SUBS=500000 -e ALLOW_ROOT=1 -e RPC_HOST=127.0.0.1  -e SSL_PORT=50002 -p 50002:50002 thetrunk/electrumx" >> ./startelectrumx.sh
+    echo "docker run --name=ZelCashElectrumX --net myzelnet123 --ip 172.18.0.2 -v /home/$USERNAME/zelcashelectrumx:/data -e DAEMON_URL=http://$RPCUSER:$RPCPASSWORD@172.18.0.1:16124 -e COIN=ZelCash -e MAX_SEND=20000000 -e CACHE_MB=2000 -e MAX_SESSIONS=5000 -e MAX_SUBS=500000 -e ALLOW_ROOT=1 -e RPC_HOST=127.0.0.1  -e SSL_PORT=50002 -p 50002:50002 --restart unless-stopped thetrunk/electrumx" >> ./startelectrumx.sh
     sudo chmod +x /home/$USERNAME/startelectrumx.sh
+    sudo chown -R $USERNAME:$USERNAME /home/$USERNAME/zelcashelectrumx
+
+#Create system service to run docker container at startup
+echo -e "\033[1;32mCreating system service file...\033[0m"
+if [ -f /etc/systemd/system/docker-ZelCashElectrumX.service ]; then
+    echo -e "\033[1;36mExisting service file found, backing up to ~/docker-ZelCashElectrumX.old ...\033[0m"
+    sudo mv /etc/systemd/system/docker-ZelCashElectrumX.service ~/docker-ZelCashElectrumX.old;
+fi
+sudo touch /etc/systemd/system/docker-ZelCashElectrumX.service
+cat << EOF > /etc/systemd/system/docker-ZelCashElectrumX.service
+[Unit]
+Description=ZelCashElectrumX service
+Requires=docker.service
+After=docker.service
+[Service]
+Restart=always
+User=$USERNAME
+Group=$USERNAME
+WorkingDirectory=/home/$USERNAME/zelcashelectrumx
+ExecStart=/usr/bin/docker start -a ZelCashElectrumX
+ExecStop=/usr/bin/docker stop -t 2 ZelCashElectrumX
+[Install]
+WantedBy=multi-user.target
+EOF
+sudo chown root:root /etc/systemd/system/docker-ZelCashElectrumX.service
+sudo systemctl daemon-reload
+sleep 3
+sudo systemctl enable docker-ZelCashElectrumX.service &> /dev/null
 
 echo -e "\033[1;32mSetup complete.\033[0m"
 sleep 3
