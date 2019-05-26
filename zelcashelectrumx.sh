@@ -153,7 +153,7 @@ echo -e "\n\033[1;33mCreating Script to Execute Docker Container...\033[0m"
     mkdir /home/$USERNAME/zelcashelectrumx
     touch /home/$USERNAME/startelectrumx.sh
     echo "#!/bin/bash" >> ./startelectrumx.sh
-    echo "docker run --name=ZelCashElectrumX --net myzelnet123 --ip 172.18.0.2 -v /home/$USERNAME/zelcashelectrumx:/data -e DAEMON_URL=http://$RPCUSER:$RPCPASSWORD@172.18.0.1:16124 -e COIN=ZelCash -e MAX_SEND=20000000 -e CACHE_MB=2000 -e MAX_SESSIONS=5000 -e MAX_SUBS=500000 -e ALLOW_ROOT=1 -e RPC_HOST=127.0.0.1  -e SSL_PORT=50002 -p 50002:50002 --restart unless-stopped thetrunk/electrumx" >> ./startelectrumx.sh
+    echo "sudo docker run --name=ZelCashElectrumX --net myzelnet123 --ip 172.18.0.2 -v /home/$USERNAME/zelcashelectrumx:/data -e DAEMON_URL=http://$RPCUSER:$RPCPASSWORD@172.18.0.1:16124 -e COIN=ZelCash -e MAX_SEND=20000000 -e CACHE_MB=2000 -e MAX_SESSIONS=5000 -e MAX_SUBS=500000 -e ALLOW_ROOT=1 -e RPC_HOST=127.0.0.1  -e SSL_PORT=50002 -p 50002:50002 --restart unless-stopped thetrunk/electrumx" >> ./startelectrumx.sh
     sudo chmod +x /home/$USERNAME/startelectrumx.sh
     #sudo chown -R $USERNAME:$USERNAME /home/$USERNAME/zelcashelectrumx
 
