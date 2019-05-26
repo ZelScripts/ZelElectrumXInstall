@@ -102,6 +102,9 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io screen
 #Verify docker installation with Hello world.
 sudo docker run hello-world
 
+#Add user to docker
+sudo usermod -aG $USERNAME docker
+
 #Output installation complete
 echo -e "\033[1;32mDocker installation complete!\033[0m"
 sleep 2
@@ -111,7 +114,7 @@ echo -e "\033[1;33mInstalling ZelCash ElectrumX Server...\033[0m"
 sleep 2
 
 #Create docker subnet
-sudo docker network create --subnet=172.18.0.0/16 myzelnet123
+docker network create --subnet=172.18.0.0/16 myzelnet123
 
 #Stopping ZelCash daemon to modify zelcash.conf
 echo -e "\033[1;33mUpdating zelcash.conf to allow IP address of docker container...\033[0m"
@@ -136,12 +139,12 @@ countdown "00:00:30"
 echo -e "\n\033[1;33mCreating Script to Execute Docker Container...\033[0m"
     sleep 3
     #Create data folder
-    sudo mkdir /home/$USERNAME/zelcashelectrumx
+    mkdir /home/$USERNAME/zelcashelectrumx
     touch /home/$USERNAME/startelectrumx.sh
     echo "#!/bin/bash" >> ./startelectrumx.sh
     echo "docker run --name=ZelCashElectrumX --net myzelnet123 --ip 172.18.0.2 -v /home/$USERNAME/zelcashelectrumx:/data -e DAEMON_URL=http://$RPCUSER:$RPCPASSWORD@172.18.0.1:16124 -e COIN=ZelCash -e MAX_SEND=20000000 -e CACHE_MB=2000 -e MAX_SESSIONS=5000 -e MAX_SUBS=500000 -e ALLOW_ROOT=1 -e RPC_HOST=127.0.0.1  -e SSL_PORT=50002 -p 50002:50002 --restart unless-stopped thetrunk/electrumx" >> ./startelectrumx.sh
     sudo chmod +x /home/$USERNAME/startelectrumx.sh
-    sudo chown -R $USERNAME:$USERNAME /home/$USERNAME/zelcashelectrumx
+    #sudo chown -R $USERNAME:$USERNAME /home/$USERNAME/zelcashelectrumx
 
 #Create system service to run docker container at startup
 echo -e "\033[1;32mCreating system service file...\033[0m"
