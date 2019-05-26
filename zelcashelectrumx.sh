@@ -95,7 +95,7 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io screen -y
 
 #Add user to docker
-sudo usermod -aG $USERNAME docker
+sudo usermod -aG docker $USERNAME
 
 #Verify docker installation with Hello world.
 docker run hello-world
