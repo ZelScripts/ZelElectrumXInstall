@@ -87,7 +87,7 @@ file="/etc/apt/sources.list"
 if grep -Fq "$searchString" $file ; then
     echo -e "Repo already added."
 else
-    echo -e "Adding docker repository..."
+    #echo -e "Adding docker repository..."
     sudo add-apt-repository \
        "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
        $(lsb_release -cs) \
@@ -106,7 +106,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io screen -y
 sudo usermod -aG docker $USERNAME
 
 #Verify docker installation with Hello world.
-docker run hello-world
+sudo docker run hello-world
 
 #Output installation complete
 echo -e "\033[1;32mDocker installation complete!\033[0m"
@@ -117,7 +117,7 @@ echo -e "\033[1;33mInstalling ZelCash ElectrumX Server...\033[0m"
 sleep 2
 
 #Create docker subnet
-docker network create --subnet=172.18.0.0/16 myzelnet123
+sudo docker network create --subnet=172.18.0.0/16 myzelnet123
 
 #Stopping ZelCash daemon to modify zelcash.conf
 echo -e "\033[1;33mUpdating zelcash.conf to allow IP address of docker container...\033[0m"
@@ -156,7 +156,8 @@ if [ -f /etc/systemd/system/docker-ZelCashElectrumX.service ]; then
     sudo mv /etc/systemd/system/docker-ZelCashElectrumX.service ~/docker-ZelCashElectrumX.old;
 fi
 sudo touch /etc/systemd/system/docker-ZelCashElectrumX.service
-sudo cat << EOF > /etc/systemd/system/docker-ZelCashElectrumX.service
+sudo chown $USERNAME:$USERNAME /etc/systemd/system/docker-ZelCashElectrumX.service
+cat << EOF > /etc/systemd/system/docker-ZelCashElectrumX.service
 [Unit]
 Description=ZelCashElectrumX service
 Requires=docker.service
