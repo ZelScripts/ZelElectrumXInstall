@@ -45,8 +45,15 @@ screen -ls
 ```
 
 ***
-__NOTE:__ This process may take anywhere from 5 to 10 minutes, depending on your VPS HW specs. ZelCashElectrumX container will restart automatically upon reboot.
+__NOTE:__ This process may take anywhere from 5 to 10 minutes, depending on your VPS HW specs.
 
-Once the script completes, it will show the ZelCash ElectrumX Server running so you can verify that it has synced with the block chain. Take note of the block height displayed via the script or visit https://explorer.zel.cash/.
+Once the script completes, it will show the ZelCash ElectrumX Server running so you can verify that it has synced with the block chain. Take note of the block height displayed via the script or visit https://explorer.zel.cash/. ZelCashElectrumX container is configured to restart automatically upon reboot.
+
+**To verify that the ZelCash ElectrumX Server is running** after a reboot use:
+
+```
+sudo systemctl status docker-ZelCashElectrumX
+```
+
 ***
 Special thanks to **Goose-Tech** and the **ZelCash Team** for debugging and assistance.
