@@ -149,7 +149,7 @@ sleep 2
 echo -e "\n\033[1;33mCurrent block height is:\033[1;36m"
 zelcash-cli getinfo | grep -a blocks | cut -d: -f2
 echo -e "\n\033[1;33mWhen ElectrumX Server has reached the same block height,\033[m"
-echo -e "\n\033[1;33muse \033[1;32m[CTRL-A]\033[1;33m then \033[1;32mD\033[1;33m to exit screen.\033[m"
+echo -e "\033[1;33muse \033[1;32m[CTRL-A]\033[1;33m then \033[1;32m[D]\033[1;33m to exit screen.\033[m"
 echo -e "\n\033[1;32m"
 read -n1 -r -p "Press any key to launch the server..." key
 echo -e "\033[0m"
