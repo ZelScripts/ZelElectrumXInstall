@@ -33,7 +33,7 @@ Then it will run ZelCash ElectrumX server in a separate screen.
 To detach from the running screen session use:
 
 ```
-[CTRL-A] then d
+[CTRL-A] then [D]
 ```
 To return to the screen session use:
 ```
@@ -47,6 +47,6 @@ screen -ls
 ***
 __NOTE:__ This process may take anywhere from 5 to 10 minutes, depending on your VPS HW specs.
 
-Once the script completes, it will list the current screens running in the background.
+Once the script completes, it will show the ZelCash ElectrumX Server running so you can verify that it has synced with the block chain. Take note of the block height displayed via the script or visit https://explorer.zel.cash/.
 ***
 Special thanks to **Goose-Tech** and the **ZelCash Team** for debugging and assistance.
