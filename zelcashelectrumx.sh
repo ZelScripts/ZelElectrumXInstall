@@ -99,11 +99,11 @@ sleep 2
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io screen
 
-#Verify docker installation with Hello world.
-sudo docker run hello-world
-
 #Add user to docker
 sudo usermod -aG $USERNAME docker
+
+#Verify docker installation with Hello world.
+docker run hello-world
 
 #Output installation complete
 echo -e "\033[1;32mDocker installation complete!\033[0m"
