@@ -68,12 +68,7 @@ sleep 3
 sudo apt-get update
 
 #Install packages to allow apt to use a repository over HTTPS:
-sudo apt-get install \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    gnupg-agent \
-    software-properties-common
+sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common -y
 
 #Output install Docker GPG key and repository
 echo -e "\033[1;33mAdding offical Docker GPG key and repository...\033[0m"
@@ -97,7 +92,7 @@ sleep 2
 
 #Install docker
 sudo apt-get update
-sudo apt-get install docker-ce docker-ce-cli containerd.io screen
+sudo apt-get install docker-ce docker-ce-cli containerd.io screen -y
 
 #Add user to docker
 sudo usermod -aG $USERNAME docker
