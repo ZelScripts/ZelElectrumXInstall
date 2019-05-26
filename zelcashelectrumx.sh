@@ -81,7 +81,7 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo apt-key fingerprint 0EBFCD88
 
 #Add stable repository
-#Searcch sources.list file for existing repo, if not add it
+#Search sources.list file for existing repo, if not add it
 searchString="deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
 file="/etc/apt/sources.list"
 if grep -Fq "$searchString" $file ; then
@@ -126,9 +126,17 @@ sudo zelcash-cli stop > /dev/null 2>&1 && sleep 5
 sudo killall $COIN_DAEMON > /dev/null 2>&1
 
 #Adding rpcallowip of docker container to zelcash.conf
-sudo cp /home/$USERNAME/.zelcash/zelcash.conf /home/$USERNAME/.zelcash/zelcash.bak
-echo "#Docker Subnet for ZelCash Electrum Server" >> /home/$USERNAME/.zelcash/$CONFIG_FILE
-echo "rpcallowip=172.18.0.2/16" >> /home/$USERNAME/.zelcash/$CONFIG_FILE
+#Search zelcash.conf for rpcallowip, and if not there add it
+searchString="rpcallowip=172.18.0.2/16"
+file="/home/$USERNAME/.zelcash"
+if grep -Fq "$searchString" $file ; then
+    echo -e "rpcallowip already added to zelcash.conf, skipping..."
+    sleep 2
+else
+    sudo cp /home/$USERNAME/.zelcash/zelcash.conf /home/$USERNAME/.zelcash/zelcash.bak
+    echo "#Docker Subnet for ZelCash Electrum Server" >> /home/$USERNAME/.zelcash/$CONFIG_FILE
+    echo "rpcallowip=172.18.0.2/16" >> /home/$USERNAME/.zelcash/$CONFIG_FILE    
+fi
 
 #Opening port 16124 in firewall
 sudo ufw allow 16124/tcp
