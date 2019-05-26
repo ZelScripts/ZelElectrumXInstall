@@ -81,10 +81,18 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo apt-key fingerprint 0EBFCD88
 
 #Add stable repository
-sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable"
+#Searcch sources.list file for existing repo, if not add it
+searchString="deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+file="/etc/apt/sources.list"
+if grep -Fq "$searchString" $file ; then
+    echo -e "Repo already added."
+else
+    echo -e "Adding docker repository..."
+    sudo add-apt-repository \
+       "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+       $(lsb_release -cs) \
+       stable"
+fi
 
 #Output install Docker & other dependencies
 echo -e "\033[1;33mInstalling Docker packages...\033[0m"
