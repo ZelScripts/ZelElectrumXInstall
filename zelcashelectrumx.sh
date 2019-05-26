@@ -128,7 +128,7 @@ sudo killall $COIN_DAEMON > /dev/null 2>&1
 #Adding rpcallowip of docker container to zelcash.conf
 #Search zelcash.conf for rpcallowip, and if not there add it
 searchString="rpcallowip=172.18.0.2/16"
-file="/home/$USERNAME/.zelcash"
+file="/home/$USERNAME/.zelcash/zelcash.conf"
 if grep -Fq "$searchString" $file ; then
     echo -e "rpcallowip already added to zelcash.conf, skipping..."
     sleep 2
