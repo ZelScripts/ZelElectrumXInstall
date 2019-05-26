@@ -45,9 +45,9 @@ countdown()
 )
 
 clear
-echo -e '\033[1;33m===============================================================================\033[0m'
+echo -e '\033[1;33m==========================================\033[0m'
 echo -e 'ZelCash ElectrumX Server Setup, v1.0'
-echo -e '\033[1;33m===============================================================================\033[0m'
+echo -e '\033[1;33m==========================================\033[0m'
 echo -e '\033[1;34m25 May 2019, by Goose-Tech\033[0m'
 echo -e
 echo -e '\033[1;36mZelCash ElectrumX setup starting, press [CTRL-C] to cancel.\033[0m'
@@ -103,7 +103,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io screen
 sudo docker run hello-world
 
 #Output installation complete
-echo -e "\033[1;33mDocker installation complete!\033[0m"
+echo -e "\033[1;32mDocker installation complete!\033[0m"
 sleep 2
 
 #Begin ZelCash ElectrumX Server Installation
@@ -133,16 +133,27 @@ echo -e "\n\033[1;32mRestarting daemon...\033[0m"
 countdown "00:00:30"
 
 #Create script to execute docker in another screen
-echo -e "\n\033[1;32mCreating Script to Execute Docker Container...\033[0m"
+echo -e "\n\033[1;33mCreating Script to Execute Docker Container...\033[0m"
     sleep 3
     #Create data folder
     sudo mkdir /home/$USERNAME/zelcashelectrumx
     touch /home/$USERNAME/startelectrumx.sh
     echo "#!/bin/bash" >> ./startelectrumx.sh
-    echo "sudo docker run --net myzelnet123 --ip 172.18.0.2 -v ~/zelcashelectrumx:/data -e DAEMON_URL=http://$RPCUSER:$RPCPASSWORD@172.18.0.1:16124 -e COIN=ZelCash -e MAX_SEND=20000000 -e CACHE_MB=2000 -e MAX_SESSIONS=5000 -e MAX_SUBS=500000 -e ALLOW_ROOT=1 -e RPC_HOST=127.0.0.1  -e SSL_PORT=50002 -p 50002:50002 thetrunk/electrumx" >> ./startelectrumx.sh
+    echo "sudo docker run --net myzelnet123 --ip 172.18.0.2 -v /home/$USERNAME/zelcashelectrumx:/data -e DAEMON_URL=http://$RPCUSER:$RPCPASSWORD@172.18.0.1:16124 -e COIN=ZelCash -e MAX_SEND=20000000 -e CACHE_MB=2000 -e MAX_SESSIONS=5000 -e MAX_SUBS=500000 -e ALLOW_ROOT=1 -e RPC_HOST=127.0.0.1  -e SSL_PORT=50002 -p 50002:50002 thetrunk/electrumx" >> ./startelectrumx.sh
     sudo chmod +x /home/$USERNAME/startelectrumx.sh
 
-#Open screen session with name zelcashElectrumx
+echo -e "\033[1;32mSetup complete.\033[0m"
+sleep 3
+echo -e "\n\033[1;33mReady to launch ZelCash ElectrumX Server...\033[0m"
+sleep 2
+echo -e "\n\033[1;33mCurrent block height is:\033[1;36m"
+zelcash-cli getinfo | grep -a blocks | cut -d: -f2
+echo -e "\n\033[1;33mWhen ElectrumX Server has reached the same block height,\033[m"
+echo -e "\n\033[1;33muse [CTRL-A] then D to exit screen.\033[m"
+echo -e "\n\033[1;32m"
+read -n1 -r -p "Press any key to launch the server..." key
+echo -e "\033[0m"
+#Open screen session with name zelcashElectrumx and run startelectrumx.sh to launch
 screen -mS zelcashElectrumx /home/$USERNAME/startelectrumx.sh
 
 
