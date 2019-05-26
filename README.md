@@ -45,7 +45,7 @@ screen -ls
 ```
 
 ***
-__NOTE:__ This process may take anywhere from 5 to 10 minutes, depending on your VPS HW specs.
+__NOTE:__ This process may take anywhere from 5 to 10 minutes, depending on your VPS HW specs. ZelCashElectrumX container will restart automatically upon reboot.
 
 Once the script completes, it will show the ZelCash ElectrumX Server running so you can verify that it has synced with the block chain. Take note of the block height displayed via the script or visit https://explorer.zel.cash/.
 ***
