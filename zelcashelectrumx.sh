@@ -148,7 +148,7 @@ if [ -f /etc/systemd/system/docker-ZelCashElectrumX.service ]; then
     sudo mv /etc/systemd/system/docker-ZelCashElectrumX.service ~/docker-ZelCashElectrumX.old;
 fi
 sudo touch /etc/systemd/system/docker-ZelCashElectrumX.service
-cat << EOF > /etc/systemd/system/docker-ZelCashElectrumX.service
+sudo cat << EOF > /etc/systemd/system/docker-ZelCashElectrumX.service
 [Unit]
 Description=ZelCashElectrumX service
 Requires=docker.service
